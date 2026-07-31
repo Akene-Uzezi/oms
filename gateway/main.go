@@ -5,6 +5,8 @@ import (
 	"net/http"
 	common "oms-common"
 
+	pb "oms-common/api"
+
 	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -16,7 +18,7 @@ var (
 )
 
 func main() {
-	conn, err := grpc.Dial(ordersServiceAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient(ordersServiceAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("failed to dial server: %v", err)
 	}
@@ -24,8 +26,10 @@ func main() {
 
 	log.Println("Dialing orders service at: %v", ordersServiceAddr)
 
+	c := pb.NewOrderServiceClient(conn)
+
 	mux := http.NewServeMux()
-	handler := NewHandler()
+	handler := NewHandler(c)
 	handler.registerRoutes(mux)
 
 	log.Printf("The server is running on %s", httpAddr)
