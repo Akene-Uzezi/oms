@@ -1,12 +1,22 @@
 package main
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
+
+const (
+	httpAddr = ":8080"
+)
 
 func main() {
 	mux := http.NewServeMux()
 	handler := NewHandler()
 	handler.registerRoutes(mux)
 
-	if err != nil {
+	log.Printf("The server is running on %s", httpAddr)
+
+	if err := http.ListenAndServe(httpAddr, mux); err != nil {
+		log.Fatal("failed to start http server")
 	}
 }

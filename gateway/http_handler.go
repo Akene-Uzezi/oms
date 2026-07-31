@@ -9,7 +9,7 @@ func NewHandler() *handler {
 }
 
 func (h *handler) registerRoutes(mux *http.ServeMux) {
-	mux.HandleFunc("POST /api/customers{customerID}/orders", h)
+	mux.HandleFunc("POST /api/customers/{customerID}/orders", h.HandleCreateOrder)
 }
 
 func (h *handler) HandleCreateOrder(w http.ResponseWriter, r *http.Request) {}
