@@ -14,7 +14,7 @@ import (
 
 var (
 	httpAddr          = common.EnvString("HTTP_ADDR", ":8080")
-	ordersServiceAddr = "localhost:3000"
+	ordersServiceAddr = "localhost:2000"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	log.Println("Dialing orders service at: %v", ordersServiceAddr)
+	log.Println("Dialing orders service at:", ordersServiceAddr)
 
 	c := pb.NewOrderServiceClient(conn)
 

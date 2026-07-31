@@ -6,6 +6,7 @@ import (
 	"net"
 	common "oms-common"
 
+	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
 )
 
