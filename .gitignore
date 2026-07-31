@@ -2,3 +2,5 @@ go.work
 .kilo/
 gateway/.env
 gateway/tmp/
+orders/.env
+orders/tmp/
